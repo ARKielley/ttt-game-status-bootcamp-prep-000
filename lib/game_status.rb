@@ -11,23 +11,23 @@ WIN_COMBINATIONS = [
   ]
 
 def won?(board)
-  WIN_COMBINATIONS.each do |combination|
-    index_1 = combination[0]
-    index_2 = combination[1]
-    index_3 = combination[2]
-    position_1 = board[index_1]
-    position_2 = board[index_2]
-    position_3 = board[index_3]
-    if position_taken?(board, index_1) && position_2 == position_1 && position_3 == position_1
-      return combination
+  WIN_COMBINATIONS.each do |combo|
+ #   index_1 = combo[0]
+ #   index_2 = combo[1]
+ #   index_3 = combo[2]
+ #   position_1 = board[index_1]
+ #   position_2 = board[index_2]
+ #   position_3 = board[index_3]
+    if position_taken?(board, combo[0]) && board[combo[1]] == board[combo[0]] && board[combo[2]] == board[combo[0]]
+      return combo
     end
   end
   return false
 end
 
 def full?(board)
-  status = board.select{ |cell| cell == "X" || cell == "O" }
-  return status.length == 9
+  board.all?{ |cell| cell == "X" || cell == "O" }
+ # return status.length == 9
 end
 
 def draw?(board)
@@ -39,9 +39,8 @@ def over?(board)
 end
 
 def winner(board)
-  if won?(board)
-    an_index = won?(board)[0]
-    board[an_index]
+  if win_combo = won?(board)
+    board[win_combo.first]
   end
 end
 
